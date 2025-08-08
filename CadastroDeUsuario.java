@@ -27,8 +27,16 @@ public class CadastroDeUsuario {
         botaoCadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                JOptionPane.showMessageDialog(frame, " Usuário Cadastrado: \n" + "Nome: " + campoNome.getText() + "\n E-mail: " + campoEmail.getText() + "\n Idade:" + campoIdade.getText() );
+                String nome = campoNome.getText().trim(); // pega o texto e os espaços que tiver
+                String email = campoEmail.getText().trim();
+                String idade = campoIdade.getText().trim();
+
+                if (nome.isEmpty() || email.isEmpty()|| idade.isEmpty()) {  // isEmpty() função para ver se está vaziio
+                    JOptionPane.showMessageDialog(frame, "Todos o campo precisam estar preenchidos!");
+                } else {
+                    JOptionPane.showMessageDialog(frame, " Usuário Cadastrado: \n" + "Nome: " + campoNome.getText() + "\n E-mail: " + campoEmail.getText() + "\n Idade:" + campoIdade.getText() );
             }
+        }
         });
 
         //Adicionando componentes ao Frame
