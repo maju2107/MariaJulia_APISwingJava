@@ -22,6 +22,13 @@ public class CadastroDeUsuario {
 
         //Botão
         JButton botaoCadastrar = new JButton("Cadastrar");
+        JButton botaoLimpar = new JButton("Limpar");
+        JRadioButton sexoMasculino = new JRadioButton("Masculino");
+        JRadioButton sexoFeminino = new JRadioButton("Feminino");
+
+        ButtonGroup selecaoDeSexo = new ButtonGroup();
+        selecaoDeSexo.add(sexoMasculino);
+        selecaoDeSexo.add(sexoFeminino);
 
         //Ação do botão
         botaoCadastrar.addActionListener(new ActionListener() {
@@ -31,12 +38,20 @@ public class CadastroDeUsuario {
                 String email = campoEmail.getText().trim();
                 String idade = campoIdade.getText().trim();
 
-                if (nome.isEmpty() || email.isEmpty()|| idade.isEmpty()) {  // isEmpty() função para ver se está vaziio
+                if (nome.isEmpty() || email.isEmpty()|| idade.isEmpty()) {  // isEmpty() função para ver se está vazio
                     JOptionPane.showMessageDialog(frame, "Todos o campo precisam estar preenchidos!");
                 } else {
                     JOptionPane.showMessageDialog(frame, " Usuário Cadastrado: \n" + "Nome: " + campoNome.getText() + "\n E-mail: " + campoEmail.getText() + "\n Idade:" + campoIdade.getText() );
             }
         }
+        });
+
+        botaoLimpar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                campoNome.setText("");
+                campoEmail.setText("");
+                campoIdade.setText(""); 
+            }
         });
 
         //Adicionando componentes ao Frame
@@ -50,6 +65,10 @@ public class CadastroDeUsuario {
         frame.add(campoIdade);
 
         frame.add(botaoCadastrar);
+        frame.add(botaoLimpar);
+        
+        frame.add(sexoMasculino);
+        frame.add(sexoFeminino);
 
         //Exibir a janela 
         frame.setVisible(true);
