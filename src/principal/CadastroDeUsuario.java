@@ -15,15 +15,7 @@ public class CadastroDeUsuario {
         
         frame.getContentPane().setBackground(Color.pink); // pega o painel de fundo e muda a cor
 
-        //Rótulos
-        JLabel labelNome = new JLabel("Nome: ");
-        JLabel labelEmail = new JLabel("E-mail: ");
-        JLabel labelIdade = new JLabel("Idade: ");
-
-        //Campos de texto
-        JTextField campoNome = new JTextField(30);
-        JTextField campoEmail = new JTextField(30);
-        JTextField campoIdade = new JTextField(3);
+        Campos campo = new Campos();
 
         //Botão
         JButton botaoCadastrar = new JButton("Cadastrar");
@@ -37,6 +29,9 @@ public class CadastroDeUsuario {
         sexoMasculino.setOpaque(true);  // torna o botão opaco
         sexoFeminino.setOpaque(true);
 
+        sexoMasculino.setBorder(BorderFactory.createEmptyBorder()); // remove a borda interna
+        sexoFeminino.setBorder(BorderFactory.createEmptyBorder());
+
         ButtonGroup selecaoDeSexo = new ButtonGroup();
         selecaoDeSexo.add(sexoMasculino);
         selecaoDeSexo.add(sexoFeminino);
@@ -45,19 +40,17 @@ public class CadastroDeUsuario {
         botaoCadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                String nome = campoNome.getText().trim(); // pega o texto e os espaços que tiver
-                String email = campoEmail.getText().trim();
-                String idade = campoIdade.getText().trim();
+                String nome = campo.getCampoNome().getText().trim(); // pega o texto e os espaços que tiver
+                String email = campo.getCampoEmail().getText().trim();
+                String idade = campo.getCampoIdade().getText().trim();
 
-                if(!ValidadorEmail.validarEmail(email)) {
-                    JOptionPane.showMessageDialog(frame, "E-mail inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
-
-                }
-
+            
                 if (nome.isEmpty() || email.isEmpty()|| idade.isEmpty()) {  // isEmpty() função para ver se está vazio
                     JOptionPane.showMessageDialog(frame, "Todos o campo precisam estar preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+                } else if (!ValidadorEmail.validarEmail(email)) {
+                    JOptionPane.showMessageDialog(frame, "E-mail inválido!", "Erro", JOptionPane.ERROR_MESSAGE); // validação de e-mail
                 } else {
-                    String mensagem = String.format(" Usuário Cadastrado: \n Nome: %s \nE-mail:%s \nIdade: %s", nome, email, idade);
+                    String mensagem = String.format(" Usuário Cadastrado: \nNome: %s \nE-mail: %s \nIdade: %s", nome, email, idade);
                     JOptionPane.showMessageDialog(frame,mensagem, "Cadastro realizado", JOptionPane.INFORMATION_MESSAGE ); // INFORMATION_MENSAGE/ ERROR_MENSAGE são constantes para definir o tipo do ícone e tom da janela de diálogo
             }
         }
@@ -65,21 +58,21 @@ public class CadastroDeUsuario {
 
         botaoLimpar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                campoNome.setText("");
-                campoEmail.setText("");
-                campoIdade.setText(""); 
+                campo.getCampoNome().setText("");
+                campo.getCampoEmail().setText("");
+                campo.getCampoIdade().setText(""); 
             }
         });
 
         //Adicionando componentes ao Frame
-        frame.add(labelNome);
-        frame.add(campoNome);
+        frame.add(campo.getLabelNome());
+        frame.add(campo.getCampoNome());
 
-        frame.add(labelEmail);
-        frame.add(campoEmail);
+        frame.add(campo.getLabelEmail());
+        frame.add(campo.getCampoEmail());
 
-        frame.add(labelIdade);
-        frame.add(campoIdade);
+        frame.add(campo.getLabelIdade());
+        frame.add(campo.getCampoIdade());
 
         frame.add(botaoCadastrar);
         frame.add(botaoLimpar);
