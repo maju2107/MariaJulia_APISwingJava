@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+
 public class CadastroDeUsuario {
     public static void main(String[] args) {
         // Criação do frame (janela)
@@ -10,6 +11,8 @@ public class CadastroDeUsuario {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // fechar e não continuar processando
         frame.setLayout(new FlowLayout()); /// FlowLayout: organiza os componentes em uma linha horizontal e quebra automaticamente para a próxima linha
         
+        frame.getContentPane().setBackground(Color.pink); // pega o painel de fundo e muda a cor
+
         //Rótulos
         JLabel labelNome = new JLabel("Nome: ");
         JLabel labelEmail = new JLabel("E-mail: ");
@@ -26,6 +29,12 @@ public class CadastroDeUsuario {
         JRadioButton sexoMasculino = new JRadioButton("Masculino");
         JRadioButton sexoFeminino = new JRadioButton("Feminino");
 
+        sexoMasculino.setBackground(Color.pink); // cor de fundo do botão
+        sexoFeminino.setBackground(Color.pink);
+
+        sexoMasculino.setOpaque(true);  // torna o botão opaco
+        sexoFeminino.setOpaque(true);
+
         ButtonGroup selecaoDeSexo = new ButtonGroup();
         selecaoDeSexo.add(sexoMasculino);
         selecaoDeSexo.add(sexoFeminino);
@@ -38,10 +47,16 @@ public class CadastroDeUsuario {
                 String email = campoEmail.getText().trim();
                 String idade = campoIdade.getText().trim();
 
+                if(!ValidadorEmail.validarEmail(email)) {
+                    JOptionPane.showMessageDialog(frame, "E-mail inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+
+                }
+
                 if (nome.isEmpty() || email.isEmpty()|| idade.isEmpty()) {  // isEmpty() função para ver se está vazio
-                    JOptionPane.showMessageDialog(frame, "Todos o campo precisam estar preenchidos!");
+                    JOptionPane.showMessageDialog(frame, "Todos o campo precisam estar preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(frame, " Usuário Cadastrado: \n" + "Nome: " + campoNome.getText() + "\n E-mail: " + campoEmail.getText() + "\n Idade:" + campoIdade.getText() );
+                    String mensagem = String.format(" Usuário Cadastrado: \n Nome: %s \nE-mail:%s \nIdade: %s", nome, email, idade);
+                    JOptionPane.showMessageDialog(frame,mensagem, "Cadastro realizado", JOptionPane.INFORMATION_MESSAGE ); // INFORMATION_MENSAGE/ ERROR_MENSAGE são constantes para definir o tipo do ícone e tom da janela de diálogo
             }
         }
         });
