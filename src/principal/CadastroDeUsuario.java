@@ -1,7 +1,9 @@
+package src.principal;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
+import src.componentes.*;
 
 public class CadastroDeUsuario {
     public static void main(String[] args) {
